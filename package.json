@@ -1,0 +1,23 @@
+{
+  "name": "pnc-web-ui-angularjs-e2e-tests",
+  "version": "0.1.0",
+  "private": true,
+  "description": "PNC Web UI AngularJS End-to-End Tests",
+  "scripts": {
+    "test": "npx cypress run",
+    "prepare": "husky install",
+    "prettier-write": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "prettier-check": "prettier --check '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "test-gui": "npx cypress open",
+    "test-cli": "npx cypress run"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --check --ignore-unknown"
+  },
+  "devDependencies": {
+    "cypress": "^8.0.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "2.3.2"
+  }
+}
