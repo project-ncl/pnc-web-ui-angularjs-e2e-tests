@@ -12,23 +12,24 @@
 
 ## Environment setup
 
-Update the environment `cypress.json` file with the URL of PNC UI that you want to test at here: ./cypress.json
+1. Update the environment `cypress.json` file with the URL of PNC UI that you want to test at here: ./cypress.json
 
 ```
 {
-  "baseUrl": "<URL of PNC UI to Test>",
-  "chromeWebSecurity": [set to true for servers]
+  "baseUrl": "<URL of PNC UI to Test>"
 }
 ```
 
-Update the environment `env.json` file with the URL of PNC UI that you want to test at here: ./cypress/fixtures/env.json
+ - NOTE: Add `"chromeWebSecurity": false` if you want to test with localhost.
+
+
+2. Update the environment `env.json` file with the credentials of PNC UI that you want to test at here: ./cypress/fixtures/env.json
 
 ```
 {
-  "PNC_USERNAME": <your username for pnc>,
-  "PNC_PASSWORD": <your password for pnc>,
+  "PNC_USERNAME": "<your username for pnc>",
+  "PNC_PASSWORD": "<your password for pnc>",
   "HEADLESS": false
-}
 }
 ```
 
@@ -45,8 +46,6 @@ npm install
 ```
 
 ## Running the tests
-
-### GUI
 
 Start your test by following steps:
 

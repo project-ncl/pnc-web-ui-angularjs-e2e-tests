@@ -2,12 +2,18 @@ import PncPage from "../elements/pages/PncPage";
 import ProjectDetailPage from "../elements/pages/ProjectDetailPage";
 import ProjectsListPage from "../elements/pages/ProjectsListPage";
 import BuildConfigDetailPage from "../elements/pages/BuildConfigDetailPage";
+import BuildDetailPage from "../elements/pages/BuildDetailPage";
 
 before(() => {
   cy.fixture("env").then(function (env) {
     this.env = env;
   });
 });
+
+beforeEach(()=>{
+  // Keep SSO Cookies to preserve the user status
+  Cypress.Cookies.preserveOnce('KEYCLOAK_SESSION', 'KEYCLOAK_IDENTITY', 'AUTH_SESSION_ID')
+})
 describe("Login", () => {
   it("should login successfully", function () {
     const pncPage = new PncPage();
@@ -20,7 +26,7 @@ describe("Login", () => {
 describe("Create Build Config", () => {
   let now = new Date();
   const buildConfig = {
-    name: "E2E-TEST" + now.getTime(),
+    name: "AUTO-E2E-TEST" + now.getTime(),
     environment: "OpenJDK 11",
     buildType: "Maven",
     buildScript: "mvn deploy -Dmaven.test.skip",
@@ -42,6 +48,7 @@ describe("Create Build Config", () => {
 
   it("should pass new BC wizard step 1", function () {
     const projectDetailPage = new ProjectDetailPage();
+    cy.wait(5000);
     projectDetailPage.fillNewBCWizardStep1A(buildConfig);
     projectDetailPage.fillNewBCWizardStep1B(buildConfig);
     projectDetailPage.fillNewBCWizardStep1C(buildConfig);
@@ -60,9 +67,15 @@ describe("Create Build Config", () => {
 });
 
 describe("Luanch new build", () => {
-  it("should be able to run a successful build", function () {
+  it("should be able to run a build", function () {
     const buildConfigDetailPage = new BuildConfigDetailPage();
 
     buildConfigDetailPage.luanchCurrentBuild();
+  });  
+  
+  it("should wait and be able to get a build result", function () {
+    const buildDetailPage = new BuildDetailPage();
+
+    buildDetailPage.getBuildResult();
   });
 });

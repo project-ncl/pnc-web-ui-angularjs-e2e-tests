@@ -12,19 +12,16 @@ class ProjectDetailPage {
   fillNewBCWizardStep1A(buildConfig) {
     cy.get(".ng-isolate-scope > .btn").click();
     const buildConfigNameField = cy.get("#build-config-name");
-    buildConfigNameField.clear();
     buildConfigNameField.type(buildConfig.name);
 
     if (buildConfig.description) {
       const descriptionField = cy.get("#build-config-description");
-      descriptionField.clear();
       descriptionField.type(buildConfig.description);
     }
 
     const environmentField = cy.get(
       ".ng-invalid-required > .ng-isolate-scope > .combobox-container > .input-group"
     );
-    environmentField.clear();
     environmentField.type(buildConfig.environment);
     cy.wait(1500);
     cy.get(".typeahead > :nth-child(1) > .ng-binding").click();
@@ -34,7 +31,6 @@ class ProjectDetailPage {
     cy.get("a").contains(buildConfig.buildType).click();
 
     const buildScriptField = cy.get("#build-config-build-script");
-    buildScriptField.clear();
     buildScriptField.type(buildConfig.buildScript);
 
     cy.get("#nextButton").its("disabled").should("not.exist");
@@ -57,11 +53,8 @@ class ProjectDetailPage {
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep2A(buildConfig) {
-    cy.wait(200);
-    cy.contains("Repository URL").next().click();
-    cy.wait(200);
-    cy.get(".has-error > .form-control").type(buildConfig.repositoryURL);
-    // cy.contains("Revision").next().click();
+    cy.wait(500);
+    cy.contains("Repository URL").next().click().type(buildConfig.repositoryURL);
     cy.contains("Revision").next().click().type(buildConfig.revision);
 
     cy.get("#nextButton").click();
