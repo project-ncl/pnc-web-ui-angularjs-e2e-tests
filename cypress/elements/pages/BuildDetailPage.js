@@ -1,16 +1,23 @@
 class BuildDetailPage {
-    constructor() {}
-  
-    visit(projectId, buildConfigId, buildId) {
-      cy.visit(`/#/projects/${projectId}/build-configs/${buildConfigId}/builds/${buildId}`);
-    }
+  constructor() {}
 
-    /* Wait for build result(if building) and return it*/
-    getBuildResult(){
-        const statusIcon = cy.get('h1 > pnc-build-status-icon.ng-isolate-scope > .build-status-icon > span > img');
-        statusIcon.debug();
-        statusIcon.its("alt").should('not.equal', 'ENQUEUED')
-    }
-
+  visit(projectId, buildConfigId, buildId) {
+    cy.visit(
+      `/#/projects/${projectId}/build-configs/${buildConfigId}/builds/${buildId}`
+    );
   }
-  export default BuildDetailPage;
+
+  /* Wait for build result(if building) and return it*/
+  getBuildResult(waitTimeout) {
+    cy.get(".current-build-status").contains("SUCCESS", {
+      timeout: waitTimeout ? waitTimeout : 10000,
+    });
+  }
+
+  /* Reload the page and get result*/
+  reloadForResult() {
+    cy.reload();
+    cy.get(".current-build-status").contains("SUCCESS");
+  }
+}
+export default BuildDetailPage;

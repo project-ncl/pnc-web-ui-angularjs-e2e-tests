@@ -5,7 +5,6 @@ class PncPage {
 
   visit() {
     cy.visit("/");
-    cy.wait(2000);
   }
 
   login(username, password) {

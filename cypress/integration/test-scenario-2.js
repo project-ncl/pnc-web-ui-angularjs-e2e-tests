@@ -20,6 +20,7 @@ beforeEach(() => {
     "AUTH_SESSION_ID"
   );
 });
+
 describe("Login", () => {
   it("should login successfully", function () {
     const pncPage = new PncPage();
@@ -31,13 +32,11 @@ describe("Login", () => {
 
 describe("Create Build Config", () => {
   let now = new Date();
-  const buildConfig = {
+  let buildConfig = {
     name: "AUTO-E2E-TEST" + now.getTime(),
     environment: "OpenJDK 11",
     buildType: "Maven",
-    buildScript: "mvn deploy -Dmaven.test.skip",
-    repositoryURL:
-      "git+ssh://code.stage.engineering.redhat.com/jboss-modules/jboss-modules.git",
+    buildScript: "mvn clean deploy -DskipTests=true",
     revision: "1.5.0.Final",
   };
 
@@ -53,6 +52,7 @@ describe("Create Build Config", () => {
   });
 
   it("should pass new BC wizard step 1", function () {
+    buildConfig.repositoryURL = this.env.TC2_REPO_URL;
     const projectDetailPage = new ProjectDetailPage();
     cy.wait(1000);
     projectDetailPage.fillNewBCWizardStep1A(buildConfig);
@@ -68,11 +68,14 @@ describe("Create Build Config", () => {
 
   it("should match with final review", function () {
     const projectDetailPage = new ProjectDetailPage();
-    projectDetailPage.finalizeNewBCWizardReview(buildConfig);
+    projectDetailPage.finalizeNewBCWizardReview(
+      buildConfig,
+      TIMEOUT_MINUTE * 60 * 1000
+    );
   });
 });
 
-describe("Luanch new build and view it", () => {
+describe("Luanch new build and view the result", () => {
   it("should be able to run a build", function () {
     const buildConfigDetailPage = new BuildConfigDetailPage();
     buildConfigDetailPage.luanchCurrentBuild();
