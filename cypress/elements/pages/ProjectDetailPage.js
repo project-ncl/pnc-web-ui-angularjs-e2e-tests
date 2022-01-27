@@ -10,9 +10,10 @@ class ProjectDetailPage {
   }
 
   fillNewBCWizardStep1A(buildConfig) {
-    cy.get(".ng-isolate-scope > .btn").click();
-    const buildConfigNameField = cy.get("#build-config-name");
-    buildConfigNameField.type(buildConfig.name);
+    cy.get(".ng-isolate-scope > .btn").click({ force: true });
+    cy.wait(500);
+    cy.get("#build-config-name").type(buildConfig.name);
+    // buildConfigNameField.type(buildConfig.name);
 
     if (buildConfig.description) {
       const descriptionField = cy.get("#build-config-description");
@@ -54,13 +55,16 @@ class ProjectDetailPage {
   }
   fillNewBCWizardStep2A(buildConfig) {
     cy.wait(500);
-    cy.contains("Repository URL").next().click().type(buildConfig.repositoryURL);
+    cy.contains("Repository URL")
+      .next()
+      .click()
+      .type(buildConfig.repositoryURL);
     cy.contains("Revision").next().click().type(buildConfig.revision);
 
     cy.get("#nextButton").click();
   }
 
-  finalizeNewBCWizardReview(buildConfig) {
+  finalizeNewBCWizardReview(buildConfig, waitTimeout) {
     cy.get(
       ":nth-child(1) > .wizard-pf-review-content > div.ng-scope > .form > :nth-child(1) > .wizard-pf-review-item-value"
     ).contains(buildConfig.name);
@@ -85,7 +89,9 @@ class ProjectDetailPage {
 
     cy.get("#nextButton").click();
 
-    cy.get("#view-build-config-button").click();
+    cy.get("#view-build-config-button", {
+      timeout: waitTimeout ? waitTimeout : 10000,
+    }).click();
   }
 }
 
