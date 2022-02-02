@@ -4,6 +4,7 @@ import ProjectsListPage from "../elements/pages/ProjectsListPage";
 import BuildConfigDetailPage from "../elements/pages/BuildConfigDetailPage";
 import BuildDetailPage from "../elements/pages/BuildDetailPage";
 
+// Set the timeout for the build of this test case
 const TIMEOUT_MINUTE = 10;
 
 before(() => {
@@ -33,7 +34,7 @@ describe("Login", () => {
 describe("Create Build Config", () => {
   let now = new Date();
   let buildConfig = {
-    name: "AUTO-E2E-TEST" + now.getTime(),
+    name: "AUTO-E2E-TEST-TC2" + now.getTime(),
     environment: "OpenJDK 11",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
@@ -55,10 +56,7 @@ describe("Create Build Config", () => {
     buildConfig.repositoryURL = this.env.TC2_REPO_URL;
     const projectDetailPage = new ProjectDetailPage();
     cy.wait(1000);
-    projectDetailPage.fillNewBCWizardStep1A(buildConfig);
-    projectDetailPage.fillNewBCWizardStep1B(buildConfig);
-    projectDetailPage.fillNewBCWizardStep1C(buildConfig);
-    projectDetailPage.fillNewBCWizardStep1D(buildConfig);
+    projectDetailPage.fillNewBCWizardStep1(buildConfig);
   });
 
   it("should pass new BC wizard step 2", function () {

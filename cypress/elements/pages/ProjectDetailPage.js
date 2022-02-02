@@ -51,6 +51,20 @@ class ProjectDetailPage {
   fillNewBCWizardStep1D(buildConfig) {
     // Todo: Integrate test for step 1D when involved
     cy.wait(200);
+    if (buildConfig.dependencyNameList) {
+      for (const dependencyName of buildConfig.dependencyNameList) {
+        let comboBox = cy.get(
+          "ng-form > .clearfix > .form-group > pnc-build-config-combobox > px-combobox > .combobox-container > .input-group > input"
+        );
+        //Workaround for NCL-6921: Unable to add dependency with long bc name
+        comboBox.type(dependencyName.substring(0, dependencyName.length - 1));
+        cy.wait(2000);
+        cy.get(".typeahead > :nth-child(1) > .ng-binding").click();
+        cy.wait(200);
+        cy.get("#addButton").click();
+        cy.wait(200);
+      }
+    }
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep2A(buildConfig) {
@@ -91,6 +105,19 @@ class ProjectDetailPage {
 
     cy.get("#view-build-config-button", {
       timeout: waitTimeout ? waitTimeout : 10000,
+    }).click();
+  }
+
+  fillNewBCWizardStep1(buildConfig) {
+    this.fillNewBCWizardStep1A(buildConfig);
+    this.fillNewBCWizardStep1B(buildConfig);
+    this.fillNewBCWizardStep1C(buildConfig);
+    this.fillNewBCWizardStep1D(buildConfig);
+  }
+
+  redirectToProjectPage() {
+    cy.get(".dl-horizontal > :nth-child(2) > .ng-binding", {
+      timeout: 2000,
     }).click();
   }
 }

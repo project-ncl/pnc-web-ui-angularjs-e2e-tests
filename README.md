@@ -20,8 +20,7 @@
 }
 ```
 
- - NOTE: Add `"chromeWebSecurity": false` if you want to test with localhost.
-
+- NOTE: Add `"chromeWebSecurity": false` if you want to test with localhost.
 
 2. Update the environment `env.json` file with the credentials of PNC UI that you want to test at here: ./cypress/fixtures/env.json
 
@@ -66,7 +65,7 @@ npm run test-cli   # Run all test cases.
 **2c) Run specific test with command line**
 
 ```bash
-npm run test-cli --spec "cypress/integration/<Test Name>.js"  # Run specific test case.
+npx cypress run --spec "cypress/integration/<Test Name>.js"  # Run specific test case.
 ```
 
 **3) Enjoy it!**
