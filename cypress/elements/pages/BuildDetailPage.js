@@ -19,5 +19,15 @@ class BuildDetailPage {
     cy.reload();
     cy.get(".current-build-status").contains("SUCCESS");
   }
+
+  /* Switch to Artifacts tab */
+  switchToArtifactsTab() {
+    cy.get(".col-md-12 > .nav > :nth-child(4) > a").click();
+  }
+
+  /* Expcet artifact tab to contain specific content */
+  containsVersionNumber(versionNumber) {
+    cy.get("body").contains(":pom:" + versionNumber);
+  }
 }
 export default BuildDetailPage;

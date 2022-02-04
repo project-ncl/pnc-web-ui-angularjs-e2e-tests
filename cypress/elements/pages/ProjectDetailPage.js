@@ -46,6 +46,24 @@ class ProjectDetailPage {
   fillNewBCWizardStep1C(buildConfig) {
     // Todo: Integrate test for step 1C when involved
     cy.wait(200);
+    if (buildConfig.buildParameterList) {
+      for (const buildParameter of buildConfig.buildParameterList) {
+        let comboBox = cy.get(
+          ".form-horizontal > :nth-child(1) > .clearfix > .form-group > px-combobox > .combobox-container > .input-group > input"
+        );
+        comboBox.type(buildParameter.key);
+        cy.wait(200);
+        cy.get(".typeahead > :nth-child(1) > .ng-scope").click();
+        cy.wait(200);
+        cy.get("form > div > .clearfix > :nth-child(3) > :nth-child(2)").type(
+          buildParameter.value
+        );
+        cy.get(
+          ".form-horizontal > :nth-child(1) > .clearfix > .pull-right > .btn-primary"
+        ).click();
+        cy.wait(200);
+      }
+    }
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep1D(buildConfig) {

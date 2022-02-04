@@ -33,7 +33,7 @@ describe("Login", () => {
 describe("Create Build Config", () => {
   let now = new Date();
   const buildConfig = {
-    name: "AUTO-E2E-TEST-TC1" + now.getTime(),
+    name: "AUTO-E2E-TEST-TC1-" + now.getTime(),
     environment: "OpenJDK 11",
     buildType: "Maven",
     buildScript: "mvn deploy -Dmaven.test.skip",

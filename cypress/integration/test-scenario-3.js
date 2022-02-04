@@ -67,7 +67,7 @@ describe("Create Build Configs", () => {
 
   let buildConfig3 = {
     name: "AUTO-E2E-TEST-TC3-3-" + now.getTime(),
-    environment: "OpenJDK 11",
+    environment: "OpenJDK 1.8; Mvn 3.3.9",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
     revision: "1.5.0.Final",
