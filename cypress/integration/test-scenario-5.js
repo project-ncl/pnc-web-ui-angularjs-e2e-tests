@@ -21,7 +21,6 @@ beforeEach(() => {
     "AUTH_SESSION_ID"
   );
 });
-
 describe("Login", () => {
   it("should login successfully", function () {
     const pncPage = new PncPage();
@@ -33,27 +32,30 @@ describe("Login", () => {
 
 describe("Create Build Config", () => {
   let now = new Date();
-  let buildConfig = {
-    name: "AUTO-E2E-TEST-TC2-" + now.getTime(),
+  const buildConfig = {
+    name: "AUTO-E2E-TEST-TC5-" + now.getTime(),
     environment: "OpenJDK 11",
     buildType: "Maven",
-    buildScript: "mvn clean deploy -DskipTests=true",
-    revision: "1.5.0.Final",
+    buildScript: "mvn clean deploy",
+    buildParameterList: [
+      { key: "ALIGNMENT_PARAMETERS", value: "-DversionOverride=0.9.9" },
+    ],
+    repositoryURL: "https://github.com/michalszynkiewicz/empty.git",
+    revision: "master",
   };
 
-  it("should be able to get JBoss Modules project detail page", function () {
+  it("should be able to get TC5 Test project detail page", function () {
     const pncPage = new PncPage();
     const projectsListPage = new ProjectsListPage();
     const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
     cy.wait(1200);
-    projectsListPage.clickLinkByProjectName(`JBoss Modules`);
+    projectsListPage.clickLinkByProjectName(`TC5 Test`);
     cy.wait(1200);
-    projectDetailPage.verifyProjectName(`JBoss Modules`);
+    projectDetailPage.verifyProjectName(`TC5 Test`);
   });
 
   it("should pass new BC wizard step 1", function () {
-    buildConfig.repositoryURL = this.env.TC2_REPO_URL;
     const projectDetailPage = new ProjectDetailPage();
     cy.wait(1000);
     projectDetailPage.fillNewBCWizardStep1(buildConfig);
@@ -66,14 +68,11 @@ describe("Create Build Config", () => {
 
   it("should match with final review", function () {
     const projectDetailPage = new ProjectDetailPage();
-    projectDetailPage.finalizeNewBCWizardReview(
-      buildConfig,
-      TIMEOUT_MINUTE * 60 * 1000
-    );
+    projectDetailPage.finalizeNewBCWizardReview(buildConfig);
   });
 });
 
-describe("Luanch new build and view the result", () => {
+describe("Luanch new build and view it", () => {
   it("should be able to run a build", function () {
     const buildConfigDetailPage = new BuildConfigDetailPage();
     buildConfigDetailPage.luanchCurrentBuild();
@@ -87,5 +86,13 @@ describe("Luanch new build and view the result", () => {
   it(`should get a SUCCESS result`, function () {
     const buildDetailPage = new BuildDetailPage();
     buildDetailPage.reloadForResult();
+  });
+});
+
+describe("Verify the artifacts version overrided", () => {
+  it("should be able to get to the artifacts tab of a build", function () {
+    const buildDetailPage = new BuildDetailPage();
+    buildDetailPage.switchToArtifactsTab();
+    buildDetailPage.containsVersionNumber("0.9.9");
   });
 });
