@@ -29,5 +29,22 @@ class BuildDetailPage {
   containsVersionNumber(versionNumber) {
     cy.get("body").contains(":pom:" + versionNumber);
   }
+
+  getBuildingStatus(queueForBuildingTimeout) {
+    cy.get(".current-build-status").contains("BUILDING", {
+      timeout: queueForBuildingTimeout ? queueForBuildingTimeout : 60000,
+    });
+  }
+
+  /* Cancel the build after 1 min and get CANCELED result*/
+  cancelBuildAndGetResult(waitTimeout) {
+    // Workaround for NCLSUP-560: Live logs don't work at all
+    // Will need to verify the live log instead of waiting for 30 sec
+    cy.wait(30000);
+    cy.contains("Abort").click();
+    cy.get(".current-build-status").contains("CANCELLED", {
+      timeout: waitTimeout ? waitTimeout : 10000,
+    });
+  }
 }
 export default BuildDetailPage;
