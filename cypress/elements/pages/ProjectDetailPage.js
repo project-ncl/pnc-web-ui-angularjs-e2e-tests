@@ -135,7 +135,7 @@ class ProjectDetailPage {
 
   redirectToProjectPage() {
     cy.get(".dl-horizontal > :nth-child(2) > .ng-binding", {
-      timeout: 2000,
+      timeout: 20000,
     }).click();
   }
 }
