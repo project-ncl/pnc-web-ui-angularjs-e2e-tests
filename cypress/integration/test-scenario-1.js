@@ -5,7 +5,7 @@ import BuildConfigDetailPage from "../elements/pages/BuildConfigDetailPage";
 import BuildDetailPage from "../elements/pages/BuildDetailPage";
 
 // Set the timeout for the build of this test case
-const TIMEOUT_MINUTE = 10;
+const TIMEOUT_MINUTE = 30;
 
 before(() => {
   cy.fixture("env").then(function (env) {
