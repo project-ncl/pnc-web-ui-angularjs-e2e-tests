@@ -10,7 +10,7 @@ class BuildConfigDetailPage {
     cy.get(".btn-group > .btn-primary").contains("Build").click();
     cy.wait(500);
     cy.get(".ng-scope.ng-isolate-scope > .ng-scope > .ng-binding", {
-      timeout: 20000,
+      timeout: 100000,
     }).click();
   }
 }
