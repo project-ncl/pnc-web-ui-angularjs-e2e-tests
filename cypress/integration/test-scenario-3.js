@@ -48,7 +48,7 @@ describe("Create Build Configs", () => {
   let now = new Date();
   let buildConfig1 = {
     name: "AUTO-E2E-TEST-TC3-1-" + now.getTime(),
-    environment: "OpenJDK 11",
+    environment: "OpenJDK 1.8; Mvn 3.3.9",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
     revision: "4.0.4",
@@ -58,7 +58,7 @@ describe("Create Build Configs", () => {
 
   let buildConfig2 = {
     name: "AUTO-E2E-TEST-TC3-2-" + now.getTime(),
-    environment: "OpenJDK 11",
+    environment: "OpenJDK 1.8; Mvn 3.3.9",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
     revision: "1.2.0",
@@ -77,7 +77,7 @@ describe("Create Build Configs", () => {
 
   let mainBuildConfig = {
     name: "AUTO-E2E-TEST-TC3-MAIN-" + now.getTime(),
-    environment: "OpenJDK 11",
+    environment: "OpenJDK 1.8; Mvn 3.3.9",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
     revision: "1.4.0",
