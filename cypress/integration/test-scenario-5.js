@@ -49,15 +49,15 @@ describe("Create Build Config", () => {
     const projectsListPage = new ProjectsListPage();
     const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
-    cy.wait(1200);
+    cy.wait(500);
     projectsListPage.clickLinkByProjectName(`TC5 Test`);
-    cy.wait(1200);
+    cy.wait(500);
     projectDetailPage.verifyProjectName(`TC5 Test`);
   });
 
   it("should pass new BC wizard step 1", function () {
     const projectDetailPage = new ProjectDetailPage();
-    cy.wait(1000);
+    cy.wait(500);
     projectDetailPage.fillNewBCWizardStep1(buildConfig);
   });
 
