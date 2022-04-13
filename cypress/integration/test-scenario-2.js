@@ -46,16 +46,16 @@ describe("Create Build Config", () => {
     const projectsListPage = new ProjectsListPage();
     const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
-    cy.wait(1200);
+    cy.wait(500);
     projectsListPage.clickLinkByProjectName(`JBoss Modules`);
-    cy.wait(1200);
+    cy.wait(500);
     projectDetailPage.verifyProjectName(`JBoss Modules`);
   });
 
   it("should pass new BC wizard step 1", function () {
     buildConfig.repositoryURL = this.env.TC2_REPO_URL;
     const projectDetailPage = new ProjectDetailPage();
-    cy.wait(1000);
+    cy.wait(500);
     projectDetailPage.fillNewBCWizardStep1(buildConfig);
   });
 

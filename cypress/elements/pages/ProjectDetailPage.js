@@ -13,7 +13,6 @@ class ProjectDetailPage {
     cy.get(".ng-isolate-scope > .btn").click({ force: true });
     cy.wait(500);
     cy.get("#build-config-name").type(buildConfig.name);
-    // buildConfigNameField.type(buildConfig.name);
 
     if (buildConfig.description) {
       const descriptionField = cy.get("#build-config-description");

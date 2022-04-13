@@ -37,9 +37,9 @@ describe("Find TC3 project", () => {
     const projectsListPage = new ProjectsListPage();
     const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
-    cy.wait(1200);
+    cy.wait(500);
     projectsListPage.clickLinkByProjectName(`TC3 Test`);
-    cy.wait(1200);
+    cy.wait(500);
     projectDetailPage.verifyProjectName(`TC3 Test`);
   });
 });
@@ -121,7 +121,6 @@ describe("Luanch new build and view the result", () => {
 
 let createBcByConfig = (buildConfig, isMainProject) => {
   const projectDetailPage = new ProjectDetailPage();
-
   cy.wait(500);
   projectDetailPage.fillNewBCWizardStep1(buildConfig);
 
