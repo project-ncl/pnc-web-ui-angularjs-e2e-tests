@@ -38,7 +38,7 @@ describe("Create Build Config", () => {
     environment: "OpenJDK 11",
     buildType: "Maven",
     buildScript: "mvn clean deploy -DskipTests=true",
-    revision: "1.5.0.Final",
+    revision: "1.5",
   };
 
   it("should be able to get JBoss Modules project detail page", function () {
