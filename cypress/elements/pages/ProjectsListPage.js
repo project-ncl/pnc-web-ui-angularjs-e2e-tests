@@ -6,8 +6,7 @@ class ProjectsListPage {
   }
 
   clickLinkByProjectName(projectName) {
-    cy.wait(2000);
-    const field = cy.get("div.ng-scope > .form-control");
+    const field = cy.get("pnc-projects-list-page [placeholder='string | !string | s?ring | st*ng']");
     field.clear();
     field.type(projectName + `{enter}`);
     cy.wait(1000);
