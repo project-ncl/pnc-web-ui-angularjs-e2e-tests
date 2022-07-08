@@ -1,6 +1,7 @@
 {
-  "baseUrl": "http://localhost:9000",
+  "baseUrl": "https://orch-stage.psi.redhat.com/pnc-web",
   "viewportWidth": 1920,
   "viewportHeight": 1080,
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 20000
 }
