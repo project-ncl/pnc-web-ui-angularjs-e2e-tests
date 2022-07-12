@@ -8,6 +8,7 @@ import BuildDetailPage from "../elements/pages/BuildDetailPage";
 const TIMEOUT_MINUTE = 30;
 
 before(() => {
+  cy.clearCookies();
   cy.fixture("env").then(function (env) {
     this.env = env;
   });
@@ -31,7 +32,7 @@ describe("Login", () => {
 });
 
 describe("Create Build Config", () => {
-  let now = new Date();
+  const now = new Date();
   const buildConfig = {
     name: "AUTO-E2E-TEST-TC5-" + now.getTime(),
     environment: "OpenJDK 11",
