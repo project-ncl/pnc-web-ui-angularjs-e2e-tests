@@ -42,7 +42,7 @@ class ProjectDetailPage {
     cy.wait(200);
     if (buildConfig.productName) {
       let comboBox = cy.get(
-        "pnc-product-combobox > px-combobox > .combobox-container > .input-group > input"
+        `.input-group > [placeholder="Select or search for a Product"]`
       );
       //Workaround for NCL-6921 issue
       comboBox.type(
@@ -55,11 +55,11 @@ class ProjectDetailPage {
       cy.get(
         "pnc-product-version-combobox > px-combobox > .combobox-container > .input-group > input"
       ).type(buildConfig.versionName);
+      cy.get(".px-combobox-option > .ng-binding")
+        .contains(buildConfig.versionName)
+        .click();
+      cy.wait(1000);
     }
-    cy.get(".px-combobox-option > .ng-binding")
-      .contains(buildConfig.versionName)
-      .click();
-    cy.wait(1000);
     cy.get("#nextButton").its("disabled").should("not.exist");
     cy.get("#nextButton").click();
   }
@@ -105,10 +105,8 @@ class ProjectDetailPage {
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep2A(buildConfig) {
-    cy.contains("Repository URL")
-      .next()
-      .click()
-      .type(buildConfig.repositoryURL);
+    cy.wait(200);
+    cy.contains("Repository URL").next().type(buildConfig.repositoryURL);
     cy.contains("Revision").next().click().type(buildConfig.revision);
 
     cy.get("#nextButton").click();
