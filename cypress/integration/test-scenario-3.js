@@ -8,6 +8,7 @@ import BuildDetailPage from "../elements/pages/BuildDetailPage";
 const TIMEOUT_MINUTE = 30;
 
 before(() => {
+  cy.clearCookies();
   cy.fixture("env").then(function (env) {
     this.env = env;
   });
@@ -45,7 +46,7 @@ describe("Find TC3 project", () => {
 });
 
 describe("Create Build Configs", () => {
-  let now = new Date();
+  const now = new Date();
   let buildConfig1 = {
     name: "AUTO-E2E-TEST-TC3-1-" + now.getTime(),
     environment: "OpenJDK 1.8; Mvn 3.3.9",

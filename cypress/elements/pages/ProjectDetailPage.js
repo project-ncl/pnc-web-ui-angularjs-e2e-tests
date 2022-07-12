@@ -40,10 +40,30 @@ class ProjectDetailPage {
   fillNewBCWizardStep1B(buildConfig) {
     // Todo: Integrate test for step 1B when involved
     cy.wait(200);
+    if (buildConfig.productName) {
+      let comboBox = cy.get(
+        "pnc-product-combobox > px-combobox > .combobox-container > .input-group > input"
+      );
+      //Workaround for NCL-6921 issue
+      comboBox.type(
+        buildConfig.productName.substring(0, buildConfig.productName.length - 1)
+      );
+      cy.wait(1000);
+      cy.get(".px-combobox-option > .ng-binding")
+        .contains(buildConfig.productName)
+        .click();
+      cy.get(
+        "pnc-product-version-combobox > px-combobox > .combobox-container > .input-group > input"
+      ).type(buildConfig.versionName);
+    }
+    cy.get(".px-combobox-option > .ng-binding")
+      .contains(buildConfig.versionName)
+      .click();
+    cy.wait(1000);
+    cy.get("#nextButton").its("disabled").should("not.exist");
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep1C(buildConfig) {
-    // Todo: Integrate test for step 1C when involved
     cy.wait(200);
     if (buildConfig.buildParameterList) {
       for (const buildParameter of buildConfig.buildParameterList) {
@@ -63,10 +83,10 @@ class ProjectDetailPage {
         cy.wait(200);
       }
     }
+    cy.get("#nextButton").its("disabled").should("not.exist");
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep1D(buildConfig) {
-    // Todo: Integrate test for step 1D when involved
     cy.wait(200);
     if (buildConfig.dependencyNameList) {
       for (const dependencyName of buildConfig.dependencyNameList) {
@@ -75,7 +95,7 @@ class ProjectDetailPage {
         );
         //Workaround for NCL-6921: Unable to add dependency with long bc name
         comboBox.type(dependencyName.substring(0, dependencyName.length - 1));
-        cy.wait(2000);
+        cy.wait(1000);
         cy.get(".typeahead > :nth-child(1) > .ng-binding").click();
         cy.wait(200);
         cy.get("#addButton").click();
@@ -85,7 +105,6 @@ class ProjectDetailPage {
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep2A(buildConfig) {
-    cy.wait(500);
     cy.contains("Repository URL")
       .next()
       .click()
@@ -133,9 +152,7 @@ class ProjectDetailPage {
   }
 
   redirectToProjectPage() {
-    cy.get(".dl-horizontal > :nth-child(2) > .ng-binding", {
-      timeout: 20000,
-    }).click();
+    cy.get(".dl-horizontal > :nth-child(2) > .ng-binding").click();
   }
 }
 
