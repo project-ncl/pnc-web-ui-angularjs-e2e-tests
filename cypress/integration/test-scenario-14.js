@@ -9,7 +9,7 @@ import GroupConfigDetailPage from "../elements/pages/GroupConfigDetailPage";
 import ProductVersionMilestoneDetailPage from "../elements/pages/ProductVersionMilestoneDetailPage";
 
 // Set the timeout for the build of this test case
-const TIMEOUT_MINUTE = 30;
+const TIMEOUT_MINUTE = 60;
 
 before(() => {
   cy.clearCookies();
