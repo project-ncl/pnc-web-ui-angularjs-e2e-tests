@@ -7,11 +7,11 @@ class BuildConfigDetailPage {
 
   luanchCurrentBuild() {
     cy.wait(500);
-    cy.get(".btn-group > .btn-primary").contains("Build").click();
+    cy.get(".btn-group > .btn-primary")
+      .contains("Build")
+      .click({ force: true });
     cy.wait(500);
-    cy.get(".ng-scope.ng-isolate-scope > .ng-scope > .ng-binding", {
-      timeout: 100000,
-    }).click();
+    cy.get(".ng-scope.ng-isolate-scope > .ng-scope > .ng-binding").click();
   }
 }
 export default BuildConfigDetailPage;
