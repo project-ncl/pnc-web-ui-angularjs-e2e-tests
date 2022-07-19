@@ -23,8 +23,8 @@ beforeEach(() => {
   );
 });
 describe("Login", () => {
+  const pncPage = new PncPage();
   it("should login successfully", function () {
-    const pncPage = new PncPage();
     pncPage.visit();
     pncPage.login(this.env.PNC_USERNAME, this.env.PNC_PASSWORD);
     cy.wait(500);
@@ -32,6 +32,9 @@ describe("Login", () => {
 });
 
 describe("Create Build Config", () => {
+  const pncPage = new PncPage();
+  const projectsListPage = new ProjectsListPage();
+  const projectDetailPage = new ProjectDetailPage();
   const now = new Date();
   const buildConfig = {
     name: "AUTO-E2E-TEST-TC5-" + now.getTime(),
@@ -46,9 +49,6 @@ describe("Create Build Config", () => {
   };
 
   it("should be able to get TC5 Test project detail page", function () {
-    const pncPage = new PncPage();
-    const projectsListPage = new ProjectsListPage();
-    const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
     cy.wait(500);
     projectsListPage.clickLinkByProjectName(`TC5 Test`);
@@ -57,42 +57,38 @@ describe("Create Build Config", () => {
   });
 
   it("should pass new BC wizard step 1", function () {
-    const projectDetailPage = new ProjectDetailPage();
     cy.wait(500);
     projectDetailPage.fillNewBCWizardStep1(buildConfig);
   });
 
   it("should pass new BC wizard step 2", function () {
-    const projectDetailPage = new ProjectDetailPage();
     projectDetailPage.fillNewBCWizardStep2A(buildConfig);
   });
 
   it("should match with final review", function () {
-    const projectDetailPage = new ProjectDetailPage();
     projectDetailPage.finalizeNewBCWizardReview(buildConfig);
   });
 });
 
 describe("Luanch new build and view it", () => {
+  const buildConfigDetailPage = new BuildConfigDetailPage();
+  const buildDetailPage = new BuildDetailPage();
   it("should be able to run a build", function () {
-    const buildConfigDetailPage = new BuildConfigDetailPage();
     buildConfigDetailPage.luanchCurrentBuild();
   });
 
   it(`should wait and be able to get a build result within ${TIMEOUT_MINUTE} minutes`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.getBuildResult(TIMEOUT_MINUTE * 60 * 1000);
   });
 
   it(`should get a SUCCESS result`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.reloadForResult();
   });
 });
 
 describe("Verify the artifacts version overrided", () => {
+  const buildDetailPage = new BuildDetailPage();
   it("should be able to get to the artifacts tab of a build", function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.switchToArtifactsTab();
     buildDetailPage.containsVersionNumber("0.9.9");
   });
