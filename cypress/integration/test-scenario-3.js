@@ -24,8 +24,8 @@ beforeEach(() => {
 });
 
 describe("Login", () => {
+  const pncPage = new PncPage();
   it("should login successfully", function () {
-    const pncPage = new PncPage();
     pncPage.visit();
     pncPage.login(this.env.PNC_USERNAME, this.env.PNC_PASSWORD);
     cy.wait(500);
@@ -33,10 +33,10 @@ describe("Login", () => {
 });
 
 describe("Find TC3 project", () => {
+  const pncPage = new PncPage();
+  const projectsListPage = new ProjectsListPage();
+  const projectDetailPage = new ProjectDetailPage();
   it("should be able to get TC3 Test project detail page", function () {
-    const pncPage = new PncPage();
-    const projectsListPage = new ProjectsListPage();
-    const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
     cy.wait(500);
     projectsListPage.clickLinkByProjectName(`TC3 Test`);
@@ -104,18 +104,17 @@ describe("Create Build Configs", () => {
 });
 
 describe("Luanch new build and view the result", () => {
+  const buildConfigDetailPage = new BuildConfigDetailPage();
+  const buildDetailPage = new BuildDetailPage();
   it("should be able to run a build", function () {
-    const buildConfigDetailPage = new BuildConfigDetailPage();
     buildConfigDetailPage.luanchCurrentBuild();
   });
 
   it(`should wait and be able to get a build result within ${TIMEOUT_MINUTE} minutes`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.getBuildResult(TIMEOUT_MINUTE * 60 * 1000);
   });
 
   it(`should get a SUCCESS result`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.reloadForResult();
   });
 });

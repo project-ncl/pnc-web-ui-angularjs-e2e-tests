@@ -24,8 +24,8 @@ beforeEach(() => {
 });
 
 describe("Login", () => {
+  const pncPage = new PncPage();
   it("should login successfully", function () {
-    const pncPage = new PncPage();
     pncPage.visit();
     pncPage.login(this.env.PNC_USERNAME, this.env.PNC_PASSWORD);
     cy.wait(500);
@@ -33,6 +33,9 @@ describe("Login", () => {
 });
 
 describe("Create Build Config", () => {
+  const pncPage = new PncPage();
+  const projectsListPage = new ProjectsListPage();
+  const projectDetailPage = new ProjectDetailPage();
   const now = new Date();
   let buildConfig = {
     name: "AUTO-E2E-TEST-TC2-" + now.getTime(),
@@ -43,9 +46,6 @@ describe("Create Build Config", () => {
   };
 
   it("should be able to get JBoss Modules project detail page", function () {
-    const pncPage = new PncPage();
-    const projectsListPage = new ProjectsListPage();
-    const projectDetailPage = new ProjectDetailPage();
     pncPage.gotoSection("projects");
     cy.wait(500);
     projectsListPage.clickLinkByProjectName(`JBoss Modules`);
@@ -55,18 +55,15 @@ describe("Create Build Config", () => {
 
   it("should pass new BC wizard step 1", function () {
     buildConfig.repositoryURL = this.env.TC2_REPO_URL;
-    const projectDetailPage = new ProjectDetailPage();
     cy.wait(500);
     projectDetailPage.fillNewBCWizardStep1(buildConfig);
   });
 
   it("should pass new BC wizard step 2", function () {
-    const projectDetailPage = new ProjectDetailPage();
     projectDetailPage.fillNewBCWizardStep2A(buildConfig);
   });
 
   it("should match with final review", function () {
-    const projectDetailPage = new ProjectDetailPage();
     projectDetailPage.finalizeNewBCWizardReview(
       buildConfig,
       TIMEOUT_MINUTE * 60 * 1000
@@ -75,18 +72,17 @@ describe("Create Build Config", () => {
 });
 
 describe("Luanch new build and view the result", () => {
+  const buildConfigDetailPage = new BuildConfigDetailPage();
+  const buildDetailPage = new BuildDetailPage();
   it("should be able to run a build", function () {
-    const buildConfigDetailPage = new BuildConfigDetailPage();
     buildConfigDetailPage.luanchCurrentBuild();
   });
 
   it(`should wait and be able to get a build result within ${TIMEOUT_MINUTE} minutes`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.getBuildResult(TIMEOUT_MINUTE * 60 * 1000);
   });
 
   it(`should get a SUCCESS result`, function () {
-    const buildDetailPage = new BuildDetailPage();
     buildDetailPage.reloadForResult();
   });
 });
