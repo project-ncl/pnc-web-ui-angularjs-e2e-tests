@@ -145,11 +145,17 @@ describe("Proceed TC 14", () => {
 
   it("should Close Milestone", function () {
     productVersionMilestoneDetailPage.visit(productVersionMilestone);
-    productVersionMilestoneDetailPage.closeMilestoneAndVerifySuccessStatus();
+    productVersionMilestoneDetailPage.closeMilestoneAndVerifySuccessStatus(
+      50000
+    );
   });
 
   it("should go back to Product version page hit Build (force build) under Build Configs", function () {
-    productVersionDetailPage.buildGroupConfigByGC(groupConfig, force);
+    productVersionDetailPage.visit(
+      productVersionMilestone.productId,
+      productVersionMilestone.versionId
+    );
+    productVersionDetailPage.buildGroupConfigByGC(groupConfig, true);
   });
 
   it("should verify the latest forced build is not in the closed milestone", function () {
