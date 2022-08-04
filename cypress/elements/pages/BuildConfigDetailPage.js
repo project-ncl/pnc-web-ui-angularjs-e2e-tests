@@ -11,7 +11,9 @@ class BuildConfigDetailPage {
       .contains("Build")
       .click({ force: true });
     cy.wait(500);
-    cy.get(".ng-scope.ng-isolate-scope > .ng-scope > .ng-binding").click();
+    cy.get(".ng-scope.ng-isolate-scope > .ng-scope > .ng-binding").click({
+      force: true,
+    });
   }
 }
 export default BuildConfigDetailPage;
