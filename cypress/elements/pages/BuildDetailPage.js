@@ -41,7 +41,9 @@ class BuildDetailPage {
     // Workaround for NCLSUP-560: Live logs don't work at all
     // Will need to verify the live log instead of waiting for 30 sec
     cy.wait(30000);
-    cy.contains("Abort").click();
+    cy.contains("Abort").click({
+      force: true,
+    });
     cy.get(".current-build-status").contains("CANCELLED", {
       timeout: waitTimeout ? waitTimeout : 10000,
     });

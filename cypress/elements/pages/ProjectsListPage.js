@@ -11,8 +11,10 @@ class ProjectsListPage {
     );
     field.clear();
     field.type(projectName + `{enter}`);
-    cy.wait(1000);
-    cy.get("pnc-project-link > a").contains(projectName).click();
+    cy.wait(2500);
+    cy.get("pnc-project-link > a").contains(projectName).click({
+      force: true,
+    });
   }
 }
 
