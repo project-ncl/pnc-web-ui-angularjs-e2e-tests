@@ -21,7 +21,7 @@ class ProductVersionDetailPage {
     cy.get('[ng-model="$ctrl.plannedEndDate"]').type(milestone.endDate);
     cy.get("#input-set-current").check();
     cy.get('.col-sm-offset-2 > [value="Create"]').click();
-    cy.get(".header-title > .ng-binding")
+    cy.get(".header-title > .ng-binding", { timeout: 10000 })
       .contains(milestone.name)
       .should("exist");
   }
