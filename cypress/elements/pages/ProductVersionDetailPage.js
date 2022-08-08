@@ -28,7 +28,8 @@ class ProductVersionDetailPage {
 
   buildGroupConfigByGC(groupConfig, force = false) {
     cy.get(
-      "pnc-group-configs-data-table > .row > pnc-toolbar > pf-toolbar > .container-fluid > .table-view-pf-toolbar > .col-sm-12 > form > .toolbar-apf-filter > pf-filter-fields > .filter-fields > .input-group > .ng-scope > input"
+      "pnc-group-configs-data-table > .row > pnc-toolbar > pf-toolbar > .container-fluid > .table-view-pf-toolbar > .col-sm-12 > form > .toolbar-apf-filter > pf-filter-fields > .filter-fields > .input-group > .ng-scope > input",
+      { timeout: 10000 }
     ).type(
       groupConfig.name.substring(0, groupConfig.name.length - 1) + "{enter}"
     );
