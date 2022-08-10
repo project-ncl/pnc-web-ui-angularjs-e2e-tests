@@ -32,10 +32,12 @@ class ProductVersionMilestoneDetailPage {
 
   closeMilestoneAndVerifySuccessStatus(waitTimeout) {
     cy.get(
-      'pnc-product-milestone-actions > .btn-group > [title="Close Milestone"]'
+      'pnc-product-milestone-actions > .btn-group > [title="Close Milestone"]',
+      { timeout: 10000 }
     ).click();
     cy.get(
-      '[name="productMilestoneForm"] > .form-group > div > [type="submit"]'
+      '[name="productMilestoneForm"] > .form-group > div > [type="submit"]',
+      { timeout: 10000 }
     ).click();
     cy.get("pnc-milestone-close-status-label > .label-success", {
       timeout: waitTimeout ? waitTimeout : 10000,
@@ -44,7 +46,8 @@ class ProductVersionMilestoneDetailPage {
 
   verifyHasNBuilds(buildNumber) {
     cy.get(
-      'pnc-builds-list > table > tbody > [ng-repeat="item in $ctrl.items"]'
+      'pnc-builds-list > table > tbody > [ng-repeat="item in $ctrl.items"]',
+      { timeout: 10000 }
     ).should("have.length", buildNumber);
   }
 }
