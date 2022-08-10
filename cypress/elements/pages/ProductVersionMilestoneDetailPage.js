@@ -15,9 +15,11 @@ class ProductVersionMilestoneDetailPage {
 
   waitAndVerifySuccessBuild(waitTimeout) {
     // work around for NCL-7233 Build status not refreshed automatically on Product Milestone detail page
-    cy.get(`[ng-if="::$ctrl.showColumn('id')"] > pnc-build-link > a`, {
+    cy.get(`pnc-build-link`, {
       timeout: 10000,
-    }).click();
+    })
+      .first()
+      .click();
     cy.get(".current-build-status").contains("SUCCESS", {
       timeout: waitTimeout ? waitTimeout : 10000,
     });
