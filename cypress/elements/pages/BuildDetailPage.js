@@ -9,7 +9,7 @@ class BuildDetailPage {
 
   /* Wait for build result(if building) and return it*/
   getBuildResult(waitTimeout) {
-    cy.get(".current-build-status").contains("SUCCESS", {
+    cy.get(".current-build-status", { timeout: 10000 }).contains("SUCCESS", {
       timeout: waitTimeout ? waitTimeout : 10000,
     });
   }
@@ -17,7 +17,7 @@ class BuildDetailPage {
   /* Reload the page and get result*/
   reloadForResult() {
     cy.reload();
-    cy.get(".current-build-status").contains("SUCCESS");
+    cy.get(".current-build-status", { timeout: 10000 }).contains("SUCCESS");
   }
 
   /* Switch to Artifacts tab */
@@ -31,7 +31,7 @@ class BuildDetailPage {
   }
 
   getBuildingStatus(queueForBuildingTimeout) {
-    cy.get(".current-build-status").contains("BUILDING", {
+    cy.get(".current-build-status", { timeout: 10000 }).contains("BUILDING", {
       timeout: queueForBuildingTimeout ? queueForBuildingTimeout : 60000,
     });
   }
@@ -44,7 +44,7 @@ class BuildDetailPage {
     cy.contains("Abort").click({
       force: true,
     });
-    cy.get(".current-build-status").contains("CANCELLED", {
+    cy.get(".current-build-status", { timeout: 10000 }).contains("CANCELLED", {
       timeout: waitTimeout ? waitTimeout : 10000,
     });
   }
