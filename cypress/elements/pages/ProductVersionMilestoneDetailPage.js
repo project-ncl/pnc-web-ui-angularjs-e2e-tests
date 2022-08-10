@@ -17,7 +17,9 @@ class ProductVersionMilestoneDetailPage {
     // work around for NCL-7233 Build status not refreshed automatically on Product Milestone detail page
     cy.get(`pnc-build-link`, {
       timeout: 10000,
-    }).click();
+    })
+      .first()
+      .click();
     cy.get(".current-build-status").contains("SUCCESS", {
       timeout: waitTimeout ? waitTimeout : 10000,
     });
