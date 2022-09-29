@@ -105,9 +105,9 @@ class ProjectDetailPage {
     cy.get("#nextButton").click();
   }
   fillNewBCWizardStep2A(buildConfig) {
-    cy.wait(200);
-    cy.contains("Repository URL").next().type(buildConfig.repositoryURL);
-    cy.contains("Revision").next().click().type(buildConfig.revision);
+    cy.wait(1000);
+    cy.get("[name=repositoryUrl]").type(buildConfig.repositoryURL);
+    cy.get("[name=revision]").type(buildConfig.revision);
 
     cy.get("#nextButton").click();
   }
